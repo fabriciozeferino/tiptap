@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <TipTap />
+    <TipTap v-model="html" @json="setContent" />
+
+    <pre class="ProseMirror">{{ json }}</pre>
+    <pre class="ProseMirror">{{ html }}</pre>
   </div>
 </template>
 
@@ -12,6 +15,17 @@ export default {
   components: {
     TipTap,
   },
+  data() {
+    return {
+      html: '',
+      json: null,
+    }
+  },
+  methods: {
+    setContent(value) {
+      this.json = value
+    }
+  }
 }
 </script>
 
@@ -35,8 +49,9 @@ html {
 
 .ProseMirror {
   min-height: 200px;
-  border: 1px solid #ccc;
-  padding: 10px;
-
+  border: .1rem solid #ccc;
+  padding: 1rem;
+  border-radius: 1rem;
+  margin: 4rem;
 }
 </style>

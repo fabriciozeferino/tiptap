@@ -8,9 +8,17 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@tiptap/core": "^2.0.0-beta.199",
     "@tiptap/starter-kit": "^2.0.0-beta.199",
     "@tiptap/vue-2": "^2.0.0-beta.199",
     "core-js": "^3.8.3",
+    "emojibase": "^6.1.0",
+    "emojibase-data": "^7.0.1",
+    "emojibase-regex": "^6.0.1",
+    "linkifyjs": "^4.0.2",
+    "lodash-es": "^4.17.21",
+    "prosemirror-state": "^1.4.2",
+    "twemoji-parser": "^14.0.0",
     "vue": "^2.6.14"
   },
   "devDependencies": {

@@ -1,10 +1,11 @@
 <template>
-  <editor-content :editor="editor" />
+  <editor-content :editor="editor" autofocus />
 </template>
 
 <script>
 import { Editor, EditorContent } from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
+import { Link } from './extensions/link.js'
 
 export default {
   components: {
@@ -43,15 +44,17 @@ export default {
   mounted() {
     this.editor = new Editor({
       content: this.value,
+      autofocus: true,
       extensions: [
         StarterKit,
+          Link,
       ],
       onUpdate: () => {
         // HTML
         this.$emit('input', this.editor.getHTML())
 
         // JSON
-        // this.$emit('input', this.editor.getJSON())
+        this.$emit('json', this.editor.getJSON())
       },
     })
   },
