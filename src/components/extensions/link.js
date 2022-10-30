@@ -1,5 +1,7 @@
-import {Node, mergeAttributes, nodeInputRule, nodePasteRule} from '@tiptap/core';
+import {mergeAttributes, Node, nodeInputRule, nodePasteRule} from '@tiptap/core';
 // import { test as isLink } from 'linkifyjs';
+import {VueNodeViewRenderer} from "@tiptap/vue-2";
+import LinkNode from "@/components/extensions/LinkNode";
 
 export const INPUT_REGEX = /(?<!!)\[(.*?)]\((.*?)\)/g; // Regex tests: https://regex101.com/r/32f7so/1
 
@@ -7,20 +9,15 @@ export const Link = Node.create({
 	name: 'link',
 	group: 'inline',
 	inline: true,
-	draggable: true,
+	draggable: false,
+	allowGapCursor: false,
 
-
-	// onCreate() {
-	// 	this.options.protocols.forEach(registerCustomProtocol);
-	// },
-	//
-	// onDestroy() {
-	// 	reset();
-	// },
-	//
-	// inclusive() {
-	// 	return this.options.autolink;
-	// },
+	addNodeView() {
+		return VueNodeViewRenderer(LinkNode, {
+			extensions: this.editor.extensions,
+			editable: this.editor.editable,
+		})
+	},
 
 	addOptions() {
 		return {
@@ -70,6 +67,24 @@ export const Link = Node.create({
 					attrs: options,
 				})
 			},
+			unsetLink: () => (commands) => {
+				// console.log({commands})
+
+				//{href: thisNode.attrs.href, text: thisNode.attrs.text}
+				// console.log(commands.node)
+
+				commands.commands.command(({tr}) => {
+					const attrs = {...tr.curSelection.node.attrs}
+
+					let schema = commands.editor.schema;
+
+					let node = schema.text(`[${attrs.text}](${attrs.text})`, [schema.nodes.text]);
+
+					tr.replaceSelectionWith(node);
+
+					return true;
+				})
+			}
 		}
 	},
 

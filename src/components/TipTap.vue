@@ -3,13 +3,13 @@
 </template>
 
 <script>
-import { Editor, EditorContent } from '@tiptap/vue-2'
+import {Editor, EditorContent} from '@tiptap/vue-2'
 import StarterKit from '@tiptap/starter-kit'
-import { Link } from './extensions/link.js'
+import {Link} from './extensions/link.js'
 
 export default {
   components: {
-    EditorContent,
+    EditorContent
   },
 
   props: {
@@ -44,7 +44,6 @@ export default {
   mounted() {
     this.editor = new Editor({
       content: this.value,
-      autofocus: true,
       extensions: [
         StarterKit,
           Link,
@@ -64,3 +63,4 @@ export default {
   },
 }
 </script>
+
